@@ -1,6 +1,8 @@
 import {getConnection} from '../db/db.js'
 import { queries } from '../db/queries.js'
 import { sql } from '../db/db.js'
+import bcrypt from 'bcryptjs'
+
 export const register = async (req,res) => {
     const {username, email, userPassword} = req.body
     if (username == null || email == null || userPassword == null ) {
@@ -14,7 +16,7 @@ export const register = async (req,res) => {
         .input("email", sql.VarChar, email)
         .input("userpassword", sql.VarChar, userPassword)
         .query(queries.register);
-        res.json({username, email, userPassword})
+        res.json({username, email})
     } catch (error) {
         res.status(500);
     }
