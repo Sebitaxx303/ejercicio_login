@@ -8,5 +8,5 @@ const app = express();
 app.set('port',config.port);
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(authRoutes);
+app.use("/api",authRoutes);
 export default app
