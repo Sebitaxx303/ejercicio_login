@@ -20,7 +20,7 @@ export const register = async (req,res) => {
         id = id[0].id
         const token = await createTokenAccess({_id: id});
         res.cookie('token',token)
-        return res.json({message: 'registro exitoso'})
+        res.json({message: 'registro exitoso'})
     } catch (error) {
         res.status(500).json({ message: error.message});
     }

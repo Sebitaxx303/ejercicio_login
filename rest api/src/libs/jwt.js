@@ -1,20 +1,20 @@
 import jwt from 'jsonwebtoken'
-import app from "./app.js"
-app.get('secret')
+import { TOKEN_SECRET } from '../config.js';
+// import app from '../app.js'
+// // app.use('secret')
 
 export function createTokenAccess(payload){
-    return new Promise((resolve,reject) =>{
+    return new Promise ((resolve,reject) =>{
         jwt.sign(
             payload,
-            secret,
+            TOKEN_SECRET,
             {
-                expiresIn: "1d"
+                expiresIn: '1d'
             },
-            (err, token) => {
+            (err,token) => {
                 if(err) reject(err);
                 resolve(token)
             }
-        )
-
+            )
     })
-};
+}
