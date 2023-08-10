@@ -16,5 +16,5 @@ export function createTokenAccess(payload){
                 resolve(token)
             }
             )
-    })
-}
+        })
+    }
