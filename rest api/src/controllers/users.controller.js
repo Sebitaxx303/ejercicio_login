@@ -47,8 +47,24 @@ export const login = async (req,res) => {
         id = id[0].id
         const token = await createTokenAccess({_id: id});
         res.cookie('token',token)
-        res.json({message: "iniio de sesion exitoso"})
+        res.json({message: "inicio de sesión exitoso"})
     } catch (error) {
         res.status(500).json({ message: error.message});
     }
+}
+
+export const logout = (req,res) => {
+    res.cookie('token','', {expires : new Date(0),
+    });
+    return res.sendStatus(200);
+}
+
+export const profile = async (req,res) => {
+    let id = req.user.id
+    const pool = await getConnection()
+    const results = await pool
+    .request()
+    .input('id', id )
+    .query(queries.profile)
+    res.json({ message : 'entraste en tu perfil'})
 }
