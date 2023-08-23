@@ -60,11 +60,11 @@ export const logout = (req,res) => {
 }
 
 export const profile = async (req,res) => {
-    let id = req.user.id
+    let id = req.user._id
     const pool = await getConnection()
     const results = await pool
     .request()
     .input('id', id )
     .query(queries.profile)
-    res.json({ message : 'entraste en tu perfil'})
+    res.json(results.recordsets)
 }

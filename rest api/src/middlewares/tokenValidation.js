@@ -6,10 +6,10 @@ export const requiredAuth = (req,res,next) => {
     // console.log(token);
     if(!token)
     return res.status(401).json({message: 'no token, authorization denied'})
-    jwt.verify(token, TOKEN_SECRET, (err,user) =>{
-        if(err) res.status(403).jso({message: "invalid token"})    
 
-    req.user = user
-    next();
+    jwt.verify(token, TOKEN_SECRET, (err,user) =>{
+        if(err) res.status(403).json({message: "invalid token"})    
+        req.user = user
+        next();
     })
 }
