@@ -1,33 +1,23 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import viteLogo from '/vite.svg'
-import './app.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import RegisterPage from './pages/RegisterPage'
+import LoginPage from './pages/LoginPage'
 
-export function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<h1>home</h1>} />
+          <Route path='/login' element={<LoginPage/>} />
+          <Route path='/register' element={<RegisterPage/>} />
+          <Route path='/tasks' element={<h1>task</h1>} />
+          <Route path='/add-task' element={<h1>new task</h1>} />
+          <Route path='/tasks/:id' element={<h1>update task</h1>} />
+          <Route path='/profile' element={<h1>profile</h1>} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
+
+export default App
