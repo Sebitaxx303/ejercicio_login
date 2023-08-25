@@ -6,7 +6,6 @@ import { createTokenAccess } from '../libs/jwt.js'
 
 export const register = async (req,res) => {   
     const {username, email, userpassword} = req.body
-
     try {
         const passwordHash = await bcrypt.hash(userpassword, 10)
         const pool = await getConnection();
