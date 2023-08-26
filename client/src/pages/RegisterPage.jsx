@@ -16,31 +16,34 @@ const RegisterPage = () => {
       signup(values);
     })
   return (
-    <div className='bg-zinc-800 max-w-md p-10 rounded-md justify-self-auto'>
-      {
-        RegisterErrors.map((error, i)=> (
-          <div className='bg-red-500 text-white p2' key={i}>
-            {error}
-            </div>
-        ))
-      }
-        <form onSubmit={onSubmited}>
+  <div className="flex h-[calc(100vh-100px)] itemas-center justify-center">   
+      <div className='bg-zinc-800 max-w-md p-10 rounded-md justify-self-auto'>
+          {
+            RegisterErrors.map((error, i)=> (
+              <div className='bg-red-500 text-white p2' key={i}>
+                {error}
+                </div>
+            ))
+          }
+            <form onSubmit={onSubmited}>
 
-            <input type="text" className='w-full bg-zinc-600 text-white px-4 py-4 rounded-md my-2' {...register("username", {required: true})} placeholder='username'/>
-            {
-              errors.username && <p className='text-red-500'>Username is required </p>
-            }
-            <input type="email" className='w-full bg-zinc-600 text-white px-4 py-4 rounded-md my-2' {...register("email", {required: true})} placeholder='email'/>
-            {
-              errors.email && <p className='text-red-500'>Email is required </p>
-            }
-            <input type="password" className='w-full bg-zinc-600 text-white px-4 py-4 rounded-md my-2' {...register("userpassword", {required: true})} placeholder='password'/>
-            {
-              errors.userpassword && <p className='text-red-500'>password is required </p>
-            }
-            <button type="submit" className="rounded-full bg-white text-black w-full px-4 py-4 ">Registrarse</button>
-        </form>
-    </div>
+                <input type="text" className='w-full bg-zinc-600 text-white px-4 py-4 rounded-md my-2' {...register("username", {required: true})} placeholder='username'/>
+                {
+                  errors.username && <p className='text-red-500'>Username is required </p>
+                }
+                <input type="email" className='w-full bg-zinc-600 text-white px-4 py-4 rounded-md my-2' {...register("email", {required: true})} placeholder='email'/>
+                {
+                  errors.email && <p className='text-red-500'>Email is required </p>
+                }
+                <input type="password" className='w-full bg-zinc-600 text-white px-4 py-4 rounded-md my-2' {...register("userpassword", {required: true})} placeholder='password'/>
+                {
+                  errors.userpassword && <p className='text-red-500'>password is required </p>
+                }
+                <button type="submit" className="rounded-full bg-white text-black w-full px-4 py-4 ">Registrarse</button>
+            </form>
+        </div>
+   </div>
+    
   )
 }
 

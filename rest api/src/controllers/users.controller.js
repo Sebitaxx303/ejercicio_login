@@ -35,13 +35,16 @@ export const login = async (req,res) => {
         .input("email", sql.VarChar, email)
         .input("userpassword", sql.VarChar, userpassword)
         .query(queries.login)
+
         let emailFound = results.recordsets[0];
         emailFound= emailFound[0].email;
         if(emailFound != email) return res.status(400).json({ message: 'user not found'})
+
         let passwordFound = results.recordsets[0]
         passwordFound= passwordFound[0].userpassword
         const passMatch = await bcrypt.compare(userpassword, passwordFound);
         if(!passMatch)return res.status(400).json({ message: 'Error in cedentials'})
+        
         let id = results.recordsets[0]
         id = id[0].id
         const token = await createTokenAccess({_id: id});

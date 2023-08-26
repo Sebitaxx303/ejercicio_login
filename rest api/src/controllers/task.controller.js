@@ -11,6 +11,7 @@ export const getTasks = async (req,res) =>{
         .input('tuser', tuser )
         .query(queries.getTasks)
         res.json(results.recordsets)
+        console.log(tuser)
     } catch (error) {
         res.status(500).json({ message: error.message});
     }
@@ -18,6 +19,7 @@ export const getTasks = async (req,res) =>{
 export const getTask = async (req,res) =>{
     const {id} = req.params
     let tuser = req.user._id
+    console.log(tuser)
     try {
         const pool = await getConnection()
         const results = await pool

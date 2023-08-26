@@ -1,10 +1,44 @@
-create database PruebaLog
-go
-use PruebaLog
-go
-create table users(
-id int identity (100,1) primary key,
-username varchar (40) unique not null,
-email varchar (40) unique not null,
-userpassword varchar(max) not null
-)
+USE [PruebaLog]
+GO
+
+/****** Object:  Table [dbo].[users]    Script Date: 25/08/2023 07:23:19 p. m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[users](
+	[id] [int] IDENTITY(100,1) NOT NULL,
+	[username] [varchar](40) NOT NULL,
+	[email] [varchar](40) NOT NULL,
+	[userpassword] [varchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[username] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[task](
+	[id] [int] IDENTITY(100,1) NOT NULL,
+	[tuser] [int] NOT NULL,
+	[title] [varchar](50) NOT NULL,
+	[descrp] [varchar](100) NOT NULL,
+	[tdate] [date] NULL
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[task]  WITH CHECK ADD FOREIGN KEY([tuser])
+REFERENCES [dbo].[users] ([id])
+GO
+
