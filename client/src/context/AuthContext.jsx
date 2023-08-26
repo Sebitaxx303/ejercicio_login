@@ -1,8 +1,11 @@
 import {createContext, useState, useContext, useEffect} from 'react';
-import { LoginRequest, RegisterRequest } from '../api/auth';
+import { LoginRequest, RegisterRequest, VerifyTokenRequest } from '../api/auth';
+import Cookies from 'js-cookie'
+
 
 export const AuthContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if(!context){
@@ -11,10 +14,12 @@ export const useAuth = () => {
     return context;
 } 
 
+ // eslint-disable-next-line react/prop-types
  export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticathed, setIsAuthenticathed] = useState(false);
     const [errors , setErrors] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const signup = async (user)=> {
         try {
@@ -50,13 +55,40 @@ export const useAuth = () => {
             return () => clearTimeout(timer)
         }
     }, [errors])
+
+    useEffect (() => {
+        async function checkLogin() {
+            const cookies = Cookies.get();
+            if(!cookies.token){
+                setIsAuthenticathed(false)
+                return(setUser(null))
+            }
+            try {
+                const res = await VerifyTokenRequest(cookies.token)
+                console.log(res)
+                if(!res.data){
+                    setIsAuthenticathed(false);
+                    setLoading(false)
+                }
+                setIsAuthenticathed(true);
+                setUser(res.data);
+                setLoading(false)
+            } catch (error) {
+                setIsAuthenticathed(false)
+                setUser(null)
+                setLoading(false)
+        }
+        }
+        checkLogin();
+    },[])
     return(
         <AuthContext.Provider value={{
             signup,
             signin,
             user, 
             isAuthenticathed,
-            errors
+            errors,
+            loading
          }}>
            {children}
          </AuthContext.Provider>

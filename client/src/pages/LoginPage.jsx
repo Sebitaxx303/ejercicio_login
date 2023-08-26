@@ -27,7 +27,7 @@ const LoginPage = () => {
             {
               errors.userpassword && <p className='text-red-500'>password is required </p>
             }
-            <button type="submit" className="rounded-full bg-white text-black w-full px-4 py-4 ">Registrarse</button>
+            <button type="submit" className="rounded-full bg-white text-black w-full px-4 py-4 ">Entrar</button>
         </form>
       </div>
     </div>

@@ -3,6 +3,8 @@ import { queries } from '../db/queries.js'
 import { sql } from '../db/db.js'
 import bcrypt from 'bcryptjs'
 import { createTokenAccess } from '../libs/jwt.js'
+import  jwt  from 'jsonwebtoken'
+import app from '../app.js'
 
 export const register = async (req,res) => {   
     const {username, email, userpassword} = req.body
@@ -69,4 +71,25 @@ export const profile = async (req,res) => {
     .input('id', id )
     .query(queries.profile)
     res.json(results.recordsets)
+}
+
+export const VerifyToken = async (req, res) => {
+    const { token } = req.cookies
+    if(!token) return res.status(400).json({ message: 'unathorized'})
+
+    jwt.verify(token, app.get('secret'), async (err, user) =>{
+        if(err) return res.status(401).json({message: 'unauthorized'})
+        const id = user._id
+        const pool = await getConnection();
+        const results = await pool
+        .request()
+        .input("id", sql.Int, id)
+        .query(queries.profile)
+    
+        if(!results) return res.status(401).json({message: 'unauthorized'})
+
+        return res.json(
+            results.recordsets
+        )
+    })
 }
