@@ -43,7 +43,7 @@ export const createTasks = async (req,res) =>{
         .input('descrp',sql.VarChar,descrp)
         .input('tuser', sql.Int, tuser)
         .query(queries.createtasks)  
-        res.json(results)
+        res.json(results.recordsets)
     } catch (error) {
         res.status(500).json({ message: error.message});
     }

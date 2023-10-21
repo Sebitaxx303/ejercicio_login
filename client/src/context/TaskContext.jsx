@@ -13,8 +13,20 @@ export const useTasks = () => {
     return context;
 }
 
+// eslint-disable-next-line react/prop-types
 export function TasksProvider({ children }){
     const [tasks, setTasks] = useState([]);
+
+    const createTask = async (task) => {
+        try {
+            console.log('task')
+            const res = await createTaksRequest(task)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     const getTasks = async () =>{
         try {
@@ -25,11 +37,6 @@ export function TasksProvider({ children }){
             console.log(error)
         }
     }
-    const createTask = async (task) => {
-        console.log('task');
-        const res = await createTaksRequest(task)
-        console.log(res.data)
-    }
 
     return(
         <TaskContext.Provider value={{
@@ -37,7 +44,7 @@ export function TasksProvider({ children }){
             createTask,
             getTasks
         }}>
-            {children}
+            { children }
         </TaskContext.Provider>
     )
 }

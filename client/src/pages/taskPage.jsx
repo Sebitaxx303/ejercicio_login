@@ -4,13 +4,13 @@ import { useTasks } from "../context/TaskContext"
 
 const TaskPage = () => {
  const { getTasks,tasks } = useTasks()
- console.log(tasks)
 
  useEffect(() => {
   getTasks()
  },[])
   return (
     <div>
+      <h1>tareas</h1>
       {
         tasks.map(task =>(
           <div key={task.id}>
