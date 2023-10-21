@@ -10,6 +10,6 @@ const ProtectedRoute = () => {
       <Outlet />
     </div>
   )
-}
+};
 
 export default ProtectedRoute

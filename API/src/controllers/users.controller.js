@@ -21,7 +21,7 @@ export const register = async (req,res) => {
         id = id[0].id
         const token = await createTokenAccess({_id: id});
         res.cookie('token',token)
-        res.json({message: 'registro exitoso'})
+        res.json(results)
     } catch (error) {
         res.status(500).json({ message: error.message});
     }
@@ -76,7 +76,7 @@ export const profile = async (req,res) => {
 export const VerifyToken = async (req, res) => {
     const { token } = req.cookies
     if(!token) return res.status(400).json({ message: 'unathorized'})
-
+    
     jwt.verify(token, app.get('secret'), async (err, user) =>{
         if(err) return res.status(401).json({message: 'unauthorized'})
         const id = user._id
